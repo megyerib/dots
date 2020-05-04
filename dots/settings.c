@@ -33,10 +33,9 @@ void set_globals_valid(void) {
 }
 
 void load_game_settings(void) {
-    int i = 1;
     FILE*set;
     set = fopen("settings.dat", "r");
-    int buf;
+
     if (set) {
         fread(&grid_x, sizeof(int), 1, set);
         fread(&grid_y, sizeof(int), 1, set);
@@ -120,16 +119,16 @@ void settings(void) {
             while(1) {
                 arrow = push_arrow();
                 switch (arrow) {
-                    case key_right:
+                    case KEY_RIGHT:
                         grid_x++;
                         break;
-                    case key_left:
+                    case KEY_LEFT:
                         grid_x--;
                         break;
-                    case key_up:
+                    case KEY_UP:
                         row--;
                         break;
-                    case key_down:
+                    case KEY_DOWN:
                         row++;
                         break;
                     default:
@@ -153,16 +152,16 @@ void settings(void) {
             while(1) {
                 arrow = push_arrow();
                 switch (arrow) {
-                    case key_right:
+                    case KEY_RIGHT:
                         grid_y++;
                         break;
-                    case key_left:
+                    case KEY_LEFT:
                         grid_y--;
                         break;
-                    case key_up:
+                    case KEY_UP:
                         row--;
                         break;
-                    case key_down:
+                    case KEY_DOWN:
                         row++;
                         break;
                     default:
@@ -186,16 +185,16 @@ void settings(void) {
             while(1) {
                 arrow = push_arrow();
                 switch (arrow) {
-                    case key_right:
+                    case KEY_RIGHT:
                         blue++;
                         break;
-                    case key_left:
+                    case KEY_LEFT:
                         blue--;
                         break;
-                    case key_up:
+                    case KEY_UP:
                         row--;
                         break;
-                    case key_down:
+                    case KEY_DOWN:
                         row++;
                         break;
                     default:
@@ -219,16 +218,16 @@ void settings(void) {
             while(1) {
                 arrow = push_arrow();
                 switch (arrow) {
-                    case key_right:
+                    case KEY_RIGHT:
                         red++;
                         break;
-                    case key_left:
+                    case KEY_LEFT:
                         red--;
                         break;
-                    case key_up:
+                    case KEY_UP:
                         row--;
                         break;
-                    case key_down:
+                    case KEY_DOWN:
                         row++;
                         break;
                     default:
@@ -252,16 +251,16 @@ void settings(void) {
             while(1) {
                 arrow = push_arrow();
                 switch (arrow) {
-                    case key_right:
+                    case KEY_RIGHT:
                         first++;
                         break;
-                    case key_left:
+                    case KEY_LEFT:
                         first--;
                         break;
-                    case key_up:
+                    case KEY_UP:
                         row--;
                         break;
-                    case key_down:
+                    case KEY_DOWN:
                         row++;
                         break;
                     default:
@@ -285,16 +284,16 @@ void settings(void) {
             while(1) {
                 arrow = push_arrow();
                 switch (arrow) {
-                    case key_right:
+                    case KEY_RIGHT:
                         response++;
                         break;
-                    case key_left:
+                    case KEY_LEFT:
                         response--;
                         break;
-                    case key_up:
+                    case KEY_UP:
                         row--;
                         break;
-                    case key_down:
+                    case KEY_DOWN:
                         row++;
                         break;
                     default:
@@ -319,13 +318,13 @@ void settings(void) {
             while(1) {
                 arrow = push_arrow();
                 switch (arrow) {
-                    case key_up:
+                    case KEY_UP:
                         row--;
                         break;
-                    case key_down:
+                    case KEY_DOWN:
                         row++;
                         break;
-                    case key_enter:
+                    case KEY_ENTER:
                         save = 1;
                         break;
                     default:

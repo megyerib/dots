@@ -21,14 +21,14 @@ int main() {
 
     while (1) {
         key = push_arrow();
-        if (key == key_up || key == key_down) {
-            if (key == key_up) y--;
-            if (key == key_down) y++;
+        if (key == KEY_UP || key == KEY_DOWN) {
+            if (key == KEY_UP) y--;
+            if (key == KEY_DOWN) y++;
             if (y < 13) y = 13;
             if (y > 15) y = 15;
             gotoxy(34, y);
         }
-        else if (key == key_enter) {
+        else if (key == KEY_ENTER) {
             clrscr();
             switch (y) {
                 case 13: // Start_game

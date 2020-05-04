@@ -5,20 +5,20 @@
 1417809494 d:\github\etcode\dots\econio.h
 	<windows.h>
 
-1534019302 source:d:\github\etcode\dots\main.c
+1534021829 source:d:\github\etcode\dots\main.c
 	"dots.h"
-	"econio.c"
-	"screen.c"
-	"settings.c"
-	"game.c"
 
-1534019794 d:\github\etcode\dots\dots.h
+1534021941 d:\github\etcode\dots\dots.h
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
+	<conio.h>
+	<time.h>
 	"econio.h"
 	"game.h"
 	"screen.h"
+	"settings.h"
+	"keys.h"
 
 1417809494 d:\github\etcode\dots\econio.c
 	"econio.h"
@@ -32,16 +32,23 @@
 1534019409 d:\github\etcode\dots\game.c
 	"dots.h"
 
-1534019409 source:d:\github\etcode\dots\game.c
+1534021838 source:d:\github\etcode\dots\game.c
 	"dots.h"
 
-1534019679 d:\github\etcode\dots\game.h
+1534023286 d:\github\etcode\dots\game.h
 
-1534019776 d:\github\etcode\dots\screen.h
+1534023302 d:\github\etcode\dots\screen.h
 
-1418212388 source:d:\github\etcode\dots\screen.c
+1534021894 source:d:\github\etcode\dots\screen.c
 	"dots.h"
 
-1418212410 source:d:\github\etcode\dots\settings.c
+1534021825 source:d:\github\etcode\dots\settings.c
 	"dots.h"
+
+1534019865 d:\github\etcode\dots\settings.h
+
+1534020212 source:d:\github\etcode\dots\highscore.c
+	"dots.h"
+
+1534021759 d:\github\etcode\dots\keys.h
 

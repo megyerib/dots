@@ -1,6 +1,7 @@
 #include "dots.h"
 
-void step(int x, int y) {
+void step(int x, int y)
+{
     if (x < min_x) {
         x = min_x;
     }
@@ -16,13 +17,15 @@ void step(int x, int y) {
     gotoxy(x, y);
 }
 
-void insert_char(int x, int y, char ch) {
+void insert_char(int x, int y, char ch)
+{
     gotoxy(x, y);
     printf("%c", ch);
     gotoxy(wherex()-1, wherey());
 }
 
-void drawgrid(int start_x, int start_y, int x, int y) {
+void drawgrid(int start_x, int start_y, int x, int y)
+{
     int i, j;
     for (i = 0; i <= x; ++i) {
         for (j = 0; j <= y; ++j) {
@@ -36,7 +39,8 @@ void drawgrid(int start_x, int start_y, int x, int y) {
     step(0,0);
 }
 
-void draw_frame(int start_x, int start_y, int x, int y) {
+void draw_frame(int start_x, int start_y, int x, int y)
+{
     int i;
     for (i = 1; i < x-1; ++i) { // Vízsz
         insert_char(start_x+i,start_y,205);
@@ -53,7 +57,8 @@ void draw_frame(int start_x, int start_y, int x, int y) {
     gotoxy(0,0);
 }
 
-void draw_mark(int x, int y, int mark) {
+void draw_mark(int x, int y, int mark)
+{
     int color, chr;
     if (mark == 1) { // Ember
         color = LIGHTBLUE;
@@ -71,7 +76,8 @@ void draw_mark(int x, int y, int mark) {
     textcolor(WHITE);
 }
 
-void hl_player(int player, int mode, char*blue_name, char*red_name) {
+void hl_player(int player, int mode, char*blue_name, char*red_name)
+{
     int color, y;
     char name[5];
     // JÁTÉKOS
@@ -103,8 +109,9 @@ void hl_player(int player, int mode, char*blue_name, char*red_name) {
     textbackground(BLACK);
 }
 
-void refresh_score(int player, int score) {
-    int y, i;
+void refresh_score(int player, int score)
+{
+    int y;
     if (player == 1) {
         y = 2;
     }
@@ -118,7 +125,8 @@ void refresh_score(int player, int score) {
     printf("%4d", score);
 }
 
-void place_hor(int place) {
+void place_hor(int place)
+{
     int row = place/grid_x+1;
     int col = place%grid_x>0?place%grid_x:grid_x;
     if (col%grid_x == 0)
@@ -135,7 +143,8 @@ void place_hor(int place) {
     insert_char(x, y, '-');
 }
 
-void place_ver(int place) {
+void place_ver(int place)
+{
     int row = place/(grid_x+1)+1;
     int col = place%(grid_x+1)>0?place%(grid_x+1):(grid_x+1);
     if (col%(grid_x+1) == 0)
@@ -152,20 +161,19 @@ void place_ver(int place) {
     insert_char(x, y, 179);
 }
 
-void build_menu(void) {
+void build_menu(void)
+{
     clrscr();
     textcolor(WHITE);
-    gotoxy(16,3);printf("`7MM\"\"\"Yb.  ");textcolor(LIGHTBLUE);printf("   .g8\"\"8q. ");textcolor(WHITE);printf("  MMP\"\"MM\"\"YMM  .M\"\"\"bgd");
-    gotoxy(16,4);printf("  MM    `Yb. ");textcolor(LIGHTBLUE);printf(".dP'    `YM.");textcolor(WHITE);printf(" P'   MM   `7 ,MI    \"Y");
-    gotoxy(16,5);printf("  MM     `Mb ");textcolor(LIGHTBLUE);printf("dM'      `MM  ");textcolor(WHITE);printf("    MM      `MMb.");
-    gotoxy(16,6);printf("  MM      MM ");textcolor(LIGHTBLUE);printf("MM        MM  ");textcolor(WHITE);printf("    MM        `YMMNq.");
-    gotoxy(16,7);printf("  MM     ,MP ");textcolor(LIGHTBLUE);printf("MM.      ,MP  ");textcolor(WHITE);printf("    MM      .     `MM");
-    gotoxy(16,8);printf("  MM    ,dP' ");textcolor(LIGHTBLUE);printf("`Mb.    ,dP'  ");textcolor(WHITE);printf("    MM      Mb     dM");
-    gotoxy(16,9);printf(".JMMmmmdP'   ");textcolor(LIGHTBLUE);printf("  `\"bmmd\"'  ");textcolor(WHITE);printf("    .JMML.    P\"Ybmmd\"");
+    gotoxy(16,3);printf("`7MM\"\"\"Yb.  ");textcolor(LIGHTBLUE);printf("   .g8\"\"8q. "); textcolor(WHITE);printf("  MMP\"\"MM\"\"YMM  .M\"\"\"bgd");
+    gotoxy(16,4);printf("  MM    `Yb. ");  textcolor(LIGHTBLUE); printf(".dP'    `YM.");  textcolor(WHITE);printf(" P'   MM   `7 ,MI    \"Y");
+    gotoxy(16,5);printf("  MM     `Mb ");  textcolor(LIGHTBLUE); printf("dM'      `MM  ");  textcolor(WHITE);printf("    MM      `MMb.");
+    gotoxy(16,6);printf("  MM      MM ");  textcolor(LIGHTBLUE); printf("MM        MM  ");  textcolor(WHITE);printf("    MM        `YMMNq.");
+    gotoxy(16,7);printf("  MM     ,MP ");  textcolor(LIGHTBLUE); printf("MM.      ,MP  ");  textcolor(WHITE);printf("    MM      .     `MM");
+    gotoxy(16,8);printf("  MM    ,dP' ");  textcolor(LIGHTBLUE); printf("`Mb.    ,dP'  ");  textcolor(WHITE);printf("    MM      Mb     dM");
+    gotoxy(16,9);printf(".JMMmmmdP'   ");  textcolor(LIGHTBLUE);printf("  `\"bmmd\"'  "); textcolor(WHITE);printf("    .JMML.    P\"Ybmmd\"");
 
     draw_frame(29,11,25,7);
-
-    FILE * saved = fopen("saved.txt", "r");
 
     gotoxy(36,13); printf("Start game");
     gotoxy(36,14); printf("Settings");

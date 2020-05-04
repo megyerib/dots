@@ -8,14 +8,14 @@ int start_x(void) {return 6+(73-(2*grid_x-1))/2-1;}
 int start_y(void) {return 1+(23-(2*grid_y-1))/2-1;}
 
 int waitforarrow(void) {
-    int keypress = 0, cnt = 0, i, j;
+    int keypress = 0;
     while (1) {
             keypress = getch();
             if (keypress != 224) {
-                if (keypress == key_enter) {
+                if (keypress == KEY_ENTER) {
                     return 1;
                 }
-                if (keypress == key_esc) {
+                if (keypress == KEY_ESC) {
                     return 2;
                 }
                 if (keypress == 'c') {
@@ -25,30 +25,31 @@ int waitforarrow(void) {
             }
             keypress = getch();
             switch (keypress) {
-                case key_down:
+                case KEY_DOWN:
                     step(wherex(), wherey()+1);
                     break;
-                case key_up:
+                case KEY_UP:
                     step(wherex(), wherey()-1);
                     break;
-                case key_left:
+                case KEY_LEFT:
                     step(wherex()-1, wherey());
                     break;
-                case key_right:
+                case KEY_RIGHT:
                     step(wherex()+1, wherey());
                     break;
-                default: cnt = 1;
+                default:
+                    break;
             }
     }
 }
 
 int push_arrow(void) {
-    int keypress = 0, cnt = 0, i, j;
+    int keypress = 0;
     while (1) {
             keypress = getch();
             if (keypress != 224) {
-                if (keypress == key_enter) {
-                    return key_enter;
+                if (keypress == KEY_ENTER) {
+                    return KEY_ENTER;
                 }
                 continue;
             }
@@ -118,11 +119,7 @@ void place_random(int* ver_lines, int* hor_lines) {
             empty_hors++;
     }
     int sum = empty_vers + empty_hors;
-    int r, place = 0;
-    int x, y, x1, y1; // f: hanyadik sorban (a táblán) van a karakter
-
-    int start_x = 6+(73-(2*grid_x-1))/2-1;
-    int start_y = 1+(23-(2*grid_y-1))/2-1;
+    int r;
 
         r = sum>1?(rand()%sum)+1:1;
         if (r <= empty_vers) {
@@ -175,7 +172,7 @@ int nocomplete(int* ver_lines, int* hor_lines) {
     tmp_hor = malloc(hor_size()*sizeof(int));
     good_ver = malloc(ver_size()*sizeof(int));
     good_hor = malloc(hor_size()*sizeof(int));
-    int i, j, k, ok = 0;
+    int i, j, ok = 0;
 
     //good_hor[0] = 0;
     //good_ver[0] = 0;
@@ -268,7 +265,7 @@ int computer(int* ver_lines, int* hor_lines) {
 }
 
 int human(int* ver_lines, int* hor_lines) {
-    int wait = waitforarrow(), x1, y1, i, j;
+    int wait = waitforarrow(), x1, y1;
     if (wait == 1) {  // Enter
         if (whatshere(wherex(), wherey()) == H_LN) {
             insert_char(wherex(), wherey(), '-');
@@ -308,11 +305,10 @@ int human(int* ver_lines, int* hor_lines) {
 }
 
 void game() {
-    int x1, y1, i, j, winner = 0, winner_score;
+    int x1, y1, i, j;
     int player, player_change; // 1:ember, 2:gép first: beáll. kezdő játékos
     char blue_name[5] = "PLYR";
     char red_name[5] = "CPTR";
-    char winner_name[20];
 
     load_game_settings();
 
@@ -416,13 +412,11 @@ void game() {
         textcolor(LIGHTBLUE);
         printf("  Blue won!  ");
         textcolor(WHITE);
-        if (blue == 1) winner = 1;
     }
     else if (score[1] < score[2]) {
         textcolor(LIGHTRED);
         printf("   Red won!  ");
         textcolor(WHITE);
-        if (red == 1) winner = 2;
     }
     else {
         printf("    Draw!    ");
