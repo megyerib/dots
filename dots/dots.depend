@@ -1,0 +1,47 @@
+# depslib dependency file v1.0
+1417809494 source:d:\github\etcode\dots\econio.c
+	"econio.h"
+
+1417809494 d:\github\etcode\dots\econio.h
+	<windows.h>
+
+1534019302 source:d:\github\etcode\dots\main.c
+	"dots.h"
+	"econio.c"
+	"screen.c"
+	"settings.c"
+	"game.c"
+
+1534019794 d:\github\etcode\dots\dots.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"econio.h"
+	"game.h"
+	"screen.h"
+
+1417809494 d:\github\etcode\dots\econio.c
+	"econio.h"
+
+1418212388 d:\github\etcode\dots\screen.c
+	"dots.h"
+
+1418212410 d:\github\etcode\dots\settings.c
+	"dots.h"
+
+1534019409 d:\github\etcode\dots\game.c
+	"dots.h"
+
+1534019409 source:d:\github\etcode\dots\game.c
+	"dots.h"
+
+1534019679 d:\github\etcode\dots\game.h
+
+1534019776 d:\github\etcode\dots\screen.h
+
+1418212388 source:d:\github\etcode\dots\screen.c
+	"dots.h"
+
+1418212410 source:d:\github\etcode\dots\settings.c
+	"dots.h"
+

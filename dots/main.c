@@ -1,10 +1,6 @@
 #include "dots.h"
-#include "econio.c"
-#include "screen.c"
-#include "settings.c"
-#include "game.c"
 
-// Glob√°lis v√°ltoz√≥k
+// Glob·lis v·ltozÛk
 int min_x = 0;
 int max_x = window_width - 1;
 int min_y = 0;
