@@ -1,4 +1,5 @@
 #include "dots.h"
+#include "port.h"
 
 void bar(int min, int max, int val) {
     int i;
@@ -62,50 +63,51 @@ void save_settings(void) {
 }
 
 void settings(void) {
-    int arrow, row = 1, save = 0;
+    int row = 1, save = 0;
+    dots_key_t key;
 
     load_game_settings();
 
     draw_frame(0,0,window_width,window_height);
-    gotoxy(2,0);
+    go_to(2,0);
     printf("SETTINGS");
 
     // Elsõ width
-    gotoxy(6,4);
+    go_to(6,4);
     printf("   Width %2d ", grid_x);
     bar(3, 36, grid_x);
 
     // Elsõ height
-    gotoxy(6,6);
+    go_to(6,6);
     printf("  Height %2d ", grid_y);
     bar(3, 11, grid_y);
 
     // Elsõ blue
-    gotoxy(6,8);
-    textcolor(LIGHTBLUE);
+    go_to(6,8);
+    set_text_color(COLOR_BLUE);
     printf("Blue (O)    ");
-    textcolor(WHITE);
+    set_text_color(COLOR_WHITE);
     choose("Human", "Computer", blue);
 
     // Elsõ red
-    gotoxy(6,10);
-    textcolor(LIGHTRED);
+    go_to(6,10);
+    set_text_color(COLOR_RED);
     printf(" Red (X)    ");
-    textcolor(WHITE);
+    set_text_color(COLOR_WHITE);
     choose("Human", "Computer", red);
 
     // Elsõ first
-    gotoxy(6,12);
+    go_to(6,12);
     printf("   First    ");
     choose("Blue", "Red", first);
 
     // Elsõ response
-    gotoxy(6,14);
+    go_to(6,14);
     printf("Response .%d ", response);
     bar(0, 9, response);
 
     // Save
-    gotoxy(6,16);
+    go_to(6,16);
     printf("SAVE");
 
     while (1) {
@@ -115,10 +117,10 @@ void settings(void) {
             row = 7;
 
         if (row == 1) { // grid_x
-            gotoxy(4, 4);
+            go_to(4, 4);
             while(1) {
-                arrow = push_arrow();
-                switch (arrow) {
+                key = get_key();
+                switch (key) {
                     case KEY_RIGHT:
                         grid_x++;
                         break;
@@ -140,18 +142,18 @@ void settings(void) {
 
                 set_globals_valid();
 
-                gotoxy(15,4);
+                go_to(15,4);
                 printf("%2d", grid_x);
-                gotoxy(18,4);
+                go_to(18,4);
                 bar(3, 36, grid_x);
-                gotoxy(4,4);
+                go_to(4,4);
             }
         }
         else if (row == 2) { // grid_y
-            gotoxy(4, 6);
+            go_to(4, 6);
             while(1) {
-                arrow = push_arrow();
-                switch (arrow) {
+                key = get_key();
+                switch (key) {
                     case KEY_RIGHT:
                         grid_y++;
                         break;
@@ -173,18 +175,18 @@ void settings(void) {
 
                 set_globals_valid();
 
-                gotoxy(15,6);
+                go_to(15,6);
                 printf("%2d", grid_y);
-                gotoxy(18,6);
+                go_to(18,6);
                 bar(3, 11, grid_y);
-                gotoxy(4,6);
+                go_to(4,6);
             }
         }
         else if (row == 3) { // BLUE
-            gotoxy(4, 8);
+            go_to(4, 8);
             while(1) {
-                arrow = push_arrow();
-                switch (arrow) {
+                key = get_key();
+                switch (key) {
                     case KEY_RIGHT:
                         blue++;
                         break;
@@ -206,18 +208,18 @@ void settings(void) {
 
                 set_globals_valid();
 
-                gotoxy(15,8);
+                go_to(15,8);
                 printf("  ");
-                gotoxy(18,8);
+                go_to(18,8);
                 choose("Human", "Computer", blue);
-                gotoxy(4,8);
+                go_to(4,8);
             }
         }
         else if (row == 4) { // RED
-            gotoxy(4, 10);
+            go_to(4, 10);
             while(1) {
-                arrow = push_arrow();
-                switch (arrow) {
+                key = get_key();
+                switch (key) {
                     case KEY_RIGHT:
                         red++;
                         break;
@@ -239,18 +241,18 @@ void settings(void) {
 
                 set_globals_valid();
 
-                gotoxy(15,10);
+                go_to(15,10);
                 printf("  ");
-                gotoxy(18,10);
+                go_to(18,10);
                 choose("Human", "Computer", red);
-                gotoxy(4,10);
+                go_to(4,10);
             }
         }
         else if (row == 5) { // FIRST
-            gotoxy(4, 12);
+            go_to(4, 12);
             while(1) {
-                arrow = push_arrow();
-                switch (arrow) {
+                key = get_key();
+                switch (key) {
                     case KEY_RIGHT:
                         first++;
                         break;
@@ -272,18 +274,18 @@ void settings(void) {
 
                 set_globals_valid();
 
-                gotoxy(15,12);
+                go_to(15,12);
                 printf("  ");
-                gotoxy(18,12);
+                go_to(18,12);
                 choose("Blue", "Red", first);
-                gotoxy(4,12);
+                go_to(4,12);
             }
         }
         else if (row == 6) { // RESPONSE
-            gotoxy(4, 14);
+            go_to(4, 14);
             while(1) {
-                arrow = push_arrow();
-                switch (arrow) {
+                key = get_key();
+                switch (key) {
                     case KEY_RIGHT:
                         response++;
                         break;
@@ -306,18 +308,18 @@ void settings(void) {
 
                 set_globals_valid();
 
-                gotoxy(15,14);
+                go_to(15,14);
                 printf(".%d", response);
-                gotoxy(18,14);
+                go_to(18,14);
                 bar(0, 9, response);
-                gotoxy(4,14);
+                go_to(4,14);
             }
         }
         else if (row == 7) { // SAVE
-            gotoxy(4, 16);
+            go_to(4, 16);
             while(1) {
-                arrow = push_arrow();
-                switch (arrow) {
+                key = get_key();
+                switch (key) {
                     case KEY_UP:
                         row--;
                         break;
@@ -339,7 +341,7 @@ void settings(void) {
                     return;
                 }
 
-                gotoxy(4,16);
+                go_to(4,16);
             }
         }
     }

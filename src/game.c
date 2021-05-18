@@ -1,4 +1,6 @@
 #include "dots.h"
+#include "port.h"
+#include <string.h>
 
 int ver_size(void)    {return grid_y*(grid_x+1)+1;}
 int hor_size(void)    {return (grid_y+1)*grid_x+1;}
@@ -8,53 +10,20 @@ int start_x(void) {return 6+(73-(2*grid_x-1))/2-1;}
 int start_y(void) {return 1+(23-(2*grid_y-1))/2-1;}
 
 int waitforarrow(void) {
-    int keypress = 0;
+    dots_key_t keypress = 0;
     while (1) {
-            keypress = getch();
-            if (keypress != 224) {
-                if (keypress == KEY_ENTER) {
-                    return 1;
-                }
-                if (keypress == KEY_ESC) {
-                    return 2;
-                }
-                if (keypress == 'c') {
-                    return 3;
-                }
-                continue;
-            }
-            keypress = getch();
-            switch (keypress) {
-                case KEY_DOWN:
-                    step(wherex(), wherey()+1);
-                    break;
-                case KEY_UP:
-                    step(wherex(), wherey()-1);
-                    break;
-                case KEY_LEFT:
-                    step(wherex()-1, wherey());
-                    break;
-                case KEY_RIGHT:
-                    step(wherex()+1, wherey());
-                    break;
-                default:
-                    break;
-            }
-    }
-}
+        keypress = get_key();
 
-int push_arrow(void) {
-    int keypress = 0;
-    while (1) {
-            keypress = getch();
-            if (keypress != 224) {
-                if (keypress == KEY_ENTER) {
-                    return KEY_ENTER;
-                }
-                continue;
-            }
-            keypress = getch();
-            return keypress;
+        if (keypress == KEY_ENTER) {
+            return 1;
+        }
+        if (keypress == KEY_ESC) {
+            return 2;
+        }
+        if (keypress == 'c') {
+            return 3;
+        }
+        continue;
     }
 }
 
@@ -174,9 +143,6 @@ int nocomplete(int* ver_lines, int* hor_lines) {
     good_hor = malloc(hor_size()*sizeof(int));
     int i, j, ok = 0;
 
-    //good_hor[0] = 0;
-    //good_ver[0] = 0;
-
     array_copy(tmp_ver, ver_lines, ver_size());
     array_copy(tmp_hor, hor_lines, hor_size());
 
@@ -248,7 +214,7 @@ int nocomplete(int* ver_lines, int* hor_lines) {
 int computer(int* ver_lines, int* hor_lines) {
     int i, j;
 
-    Sleep(response*100);
+    wait_ms(response*100);
     // Befejezhető mezők befejezése
     for (j = 1; j <= grid_y; ++j) {
         for (i = 1; i <= grid_x; ++i) {
@@ -267,11 +233,11 @@ int computer(int* ver_lines, int* hor_lines) {
 int human(int* ver_lines, int* hor_lines) {
     int wait = waitforarrow(), x1, y1;
     if (wait == 1) {  // Enter
-        if (whatshere(wherex(), wherey()) == H_LN) {
-            insert_char(wherex(), wherey(), '-');
+        if (whatshere(cursor_x(), cursor_y()) == H_LN) {
+            insert_char(cursor_x(), cursor_y(), '-');
             // Tömbhöz ad
-            x1 = (wherex()-start_x()+1)/2;
-            y1 = (wherey()-start_y())/2;
+            x1 = (cursor_x()-start_x()+1)/2;
+            y1 = (cursor_y()-start_y())/2;
             if (!hor_lines[y1*grid_x+x1]) {
                 hor_lines[y1*grid_x+x1] = 1;
             }
@@ -279,11 +245,11 @@ int human(int* ver_lines, int* hor_lines) {
                 return 0;
             }
         }
-        else if (whatshere(wherex(), wherey()) == V_LN) {
-            insert_char(wherex(), wherey(), 179);
+        else if (whatshere(cursor_x(), cursor_y()) == V_LN) {
+            insert_char(cursor_x(), cursor_y(), 179);
             // Tömbhöz ad
-            x1 = (wherex()-start_x())/2+1;
-            y1 = (wherey()-start_y())/2;
+            x1 = (cursor_x()-start_x())/2+1;
+            y1 = (cursor_y()-start_y())/2;
             if (!ver_lines[y1*(grid_x+1)+x1]) {
                 ver_lines[y1*(grid_x+1)+x1] = 1;
             }
@@ -306,7 +272,7 @@ int human(int* ver_lines, int* hor_lines) {
 
 void game() {
     int x1, y1, i, j;
-    int player, player_change; // 1:ember, 2:gép first: beáll. kezdő játékos
+    int player, player_change = 0; // 1:ember, 2:gép first: beáll. kezdő játékos
     char blue_name[5] = "PLYR";
     char red_name[5] = "CPTR";
 
@@ -326,9 +292,9 @@ void game() {
 
     drawgrid(6+(36-grid_x), 1+(11-grid_y), grid_x, grid_y);
 
-    gotoxy(1,1); textcolor(LIGHTBLUE); printf(blue_name);
-    gotoxy(1,4); textcolor(LIGHTRED);  printf(red_name);
-    textcolor(WHITE);
+    go_to(1,1); set_text_color(COLOR_BLUE); printf(blue_name);
+    go_to(1,4); set_text_color(COLOR_RED);  printf(red_name);
+    set_text_color(COLOR_WHITE);
     refresh_score(1,0);
     refresh_score(2,0);
 
@@ -379,52 +345,52 @@ void game() {
             for (i = 1; i <= grid_y; ++i) {
                 for (j = 1; j <= grid_x; ++j) {
                     if (check_square(j,i,ver_lines,hor_lines) && fields[(i-1)*grid_x+j] == 0) {
-                        x1 = wherex();
-                        y1 = wherey();
+                        x1 = cursor_x();
+                        y1 = cursor_y();
                         draw_mark(i,j,player);
-                        gotoxy(x1, y1);
+                        go_to(x1, y1);
                         fields[(i-1)*grid_x+j] = player;
                         score[player]++;
                         refresh_score(player, score[player]);
-                        gotoxy(x1, y1);
+                        go_to(x1, y1);
                         player_change = 0;
                     }
                 }
             }
             if (player_change) {
-                x1 = wherex();
-                y1 = wherey();
+                x1 = cursor_x();
+                y1 = cursor_y();
                 hl_player(player, 0, blue_name, red_name);
                 player = player==1?2:1;
                 hl_player(player, 1, blue_name, red_name);
-                gotoxy(x1, y1);
+                go_to(x1, y1);
             }
     }
 
     // Vége a játéknak
-    free(hor_lines);
-    free(ver_lines);
-    free(fields);
+    //free(hor_lines);
+    //free(ver_lines);
+    //free(fields);
 
     draw_frame(35,1,15,3);
-    gotoxy(36,2);
+    go_to(36,2);
     if (score[1] > score[2]) {
-        textcolor(LIGHTBLUE);
+        set_text_color(COLOR_BLUE);
         printf("  Blue won!  ");
-        textcolor(WHITE);
+        set_text_color(COLOR_WHITE);
     }
     else if (score[1] < score[2]) {
-        textcolor(LIGHTRED);
+        set_text_color(COLOR_RED);
         printf("   Red won!  ");
-        textcolor(WHITE);
+        set_text_color(COLOR_WHITE);
     }
     else {
         printf("    Draw!    ");
     }
 
-    gotoxy(57, 23);
+    go_to(57, 23);
     printf("Press any key to exit");
-    gotoxy(window_width-2, window_height-2);
-    getch();
+    go_to(window_width-2, window_height-2);
+    wait_for_any_key();
     return;
 }

@@ -14,22 +14,23 @@ first = 1,
 response = 4;
 
 int main() {
-    srand(time(NULL));
-    int key, y = 13;
+    init_random();
+    int y = 13;
 
     build_menu();
 
     while (1) {
-        key = push_arrow();
+        dots_key_t key = get_key();
+
         if (key == KEY_UP || key == KEY_DOWN) {
             if (key == KEY_UP) y--;
             if (key == KEY_DOWN) y++;
             if (y < 13) y = 13;
             if (y > 15) y = 15;
-            gotoxy(34, y);
+            go_to(34, y);
         }
         else if (key == KEY_ENTER) {
-            clrscr();
+            clear_screen();
             switch (y) {
                 case 13: // Start_game
                     game();

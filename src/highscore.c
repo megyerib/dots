@@ -1,4 +1,5 @@
 #include "dots.h"
+#include <string.h>
 
 typedef struct scr{
     char name[20];

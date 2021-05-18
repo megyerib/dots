@@ -1,16 +1,15 @@
 #pragma once
 
+#include "port.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <conio.h>
 #include <time.h>
 
-#include "econio.h"
 #include "game.h"
 #include "screen.h"
 #include "settings.h"
-#include "keys.h"
 
 #define window_width  80
 #define window_height 25
