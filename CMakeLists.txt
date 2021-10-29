@@ -28,6 +28,10 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES Linux)
 		${PROJECT_NAME} PRIVATE
 	    src/port_linux.c
 	)
+
+	find_package(Curses REQUIRED)
+	include_directories(${CURSES_INCLUDE_DIR})
+	target_link_libraries(${PROJECT_NAME} ${CURSES_LIBRARIES})
 else()
 	message(FATAL_ERROR "System not supported: " ${CMAKE_SYSTEM_NAME})
 endif()

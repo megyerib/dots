@@ -1,6 +1,6 @@
 #include "dots.h"
 
-// Glob·lis v·ltozÛk
+// Glob√°lis v√°ltoz√≥k
 int min_x = 0;
 int max_x = window_width - 1;
 int min_y = 0;
@@ -13,8 +13,13 @@ red = 2,
 first = 1,
 response = 4;
 
+void linux_port_test();
+
 int main() {
-    init_random();
+    linux_port_test();
+    return 0;
+    
+    init();
     int y = 13;
 
     build_menu();
@@ -47,5 +52,18 @@ int main() {
         }
     }
 
+    clean();
+
     return 0;
+}
+
+void linux_port_test()
+{
+    printf("Linux port test\n");
+    
+    while(1)
+    {
+        int key = get_key();
+        printf("%d\n", key);
+    }
 }

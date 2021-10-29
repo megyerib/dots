@@ -20,7 +20,9 @@ typedef enum dots_color_t {
 	COLOR_NUM
 } dots_color_t;
 
-void init_random(void);
+void init(void);
+
+void clean(void);
 
 dots_key_t get_key(void);
 

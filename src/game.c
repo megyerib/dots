@@ -273,8 +273,8 @@ int human(int* ver_lines, int* hor_lines) {
 void game() {
     int x1, y1, i, j;
     int player, player_change = 0; // 1:ember, 2:gép first: beáll. kezdő játékos
-    char blue_name[5] = "PLYR";
-    char red_name[5] = "CPTR";
+    char blue_name[] = "PLYR";
+    char red_name[] = "CPTR";
 
     load_game_settings();
 
@@ -292,8 +292,8 @@ void game() {
 
     drawgrid(6+(36-grid_x), 1+(11-grid_y), grid_x, grid_y);
 
-    go_to(1,1); set_text_color(COLOR_BLUE); printf(blue_name);
-    go_to(1,4); set_text_color(COLOR_RED);  printf(red_name);
+    go_to(1,1); set_text_color(COLOR_BLUE); printf("%s", blue_name);
+    go_to(1,4); set_text_color(COLOR_RED);  printf("%s", red_name);
     set_text_color(COLOR_WHITE);
     refresh_score(1,0);
     refresh_score(2,0);

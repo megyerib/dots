@@ -18,7 +18,7 @@ void step(int x, int y)
     go_to(x, y);
 }
 
-void insert_char(int x, int y, char ch)
+void insert_char(int x, int y, unsigned char ch)
 {
     go_to(x, y);
     printf("%c", ch);

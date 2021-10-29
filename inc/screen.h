@@ -1,7 +1,7 @@
 #pragma once
 
 void step(int x, int y);
-void insert_char(int x, int y, char ch);
+void insert_char(int x, int y, unsigned char ch);
 void drawgrid(int start_x, int start_y, int x, int y);
 void draw_frame(int start_x, int start_y, int x, int y);
 void draw_mark(int x, int y, int mark);

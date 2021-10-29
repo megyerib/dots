@@ -24,9 +24,14 @@ static const int econio_color_value[COLOR_NUM] = {
     [COLOR_BLUE]  = LIGHTBLUE
 };
 
-void init_random(void)
+void init(void)
 {
 	srand((unsigned int)time(NULL));
+}
+
+void clean(void)
+{
+
 }
 
 dots_key_t get_key(void)
